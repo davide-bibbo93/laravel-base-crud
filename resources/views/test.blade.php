@@ -7,7 +7,7 @@
       <title>laravel-base-crud</title>
     </head>
     <body>
-      <h1>BEER SHOP</h1>
+      <h1>In questa sezione ho fatto delle prove.</h1>
 
       <h3>Per andare alla lista delle birre clicca <a href="/beers/">qui</a></h3>
 

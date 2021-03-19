@@ -26,7 +26,7 @@ class BeerController extends Controller
      */
     public function create()
     {
-        //
+        return view('beers.create');
     }
 
     /**
@@ -37,7 +37,41 @@ class BeerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        // validazione dati
+        $request->validate([
+            'brand' => 'required',
+            'type' => 'required',
+            'alcohol_content' => 'numeric',
+            'price' => 'required|numeric',
+            'cover' => 'required',
+            ]);
+
+        // metodo all() per avere tutte le coppie name-value in un array
+        $data = $request->all();
+
+        /* Versione base */
+        // $beer = new Beer();
+        // $beer->brand = $data['brand'];
+        // $beer->type = $data['type'];
+        // $beer->alcohol_content = $data['alcohol_content'];
+        // $beer->price = $data['price'];
+        // $beer->cover = $data['cover'];
+        // $beer->save();
+
+        /* Altra versione più pulita */
+        /*
+        nuovo oggetto Beer, poi fill dell'array delle coppie generate dal form
+        poi dopo aver messo il protected $fillable nel model, salvi i dati nel db con save()
+        */
+        $beer = new Beer();
+        $beer->fill($data);
+        $beer->save();
+
+        // ritorno alla root show facendo vedere l'ultimo oggetto aggiunto dalla form
+        $beerStored = Beer::orderBy('id', 'desc')->first();
+
+        return redirect()->route('beers.show', $beerStored);
     }
 
     /**

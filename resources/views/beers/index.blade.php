@@ -18,14 +18,14 @@
         </tr>
       </thead>
       <tbody>
-        @foreach ($beers as $item)
+        @foreach ($beers as $beer)
           <tr>
-            <th scope="row">{{$item->id}}</th>
-            <td><a href="/beers/{{$item->id}}">{{$item->brand}}</a></td>
-            <td>{{$item->type}}</td>
-            <td>{{$item->alcohol_content}}</td>
-            <td>{{$item->price}}</td>
-            <td><img src="{{$item->cover}}" width="100px" alt=""></td>
+            <th scope="row">{{$beer->id}}</th>
+            <td><a href="{{ route('beers.show', compact('beer')) }}">{{$beer->brand}}</a></td>
+            <td>{{$beer->type}}</td>
+            <td>{{$beer->alcohol_content}}</td>
+            <td>{{$beer->price}}</td>
+            <td><img src="{{$beer->cover}}" width="100px" alt=""></td>
           </tr>
         @endforeach
       </tbody>

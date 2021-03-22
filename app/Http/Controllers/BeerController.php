@@ -37,15 +37,8 @@ class BeerController extends Controller
      */
     public function store(Request $request)
     {
-
         // validazione dati
-        $request->validate([
-            'brand' => 'required',
-            'type' => 'required',
-            'alcohol_content' => 'numeric',
-            'price' => 'required|numeric',
-            'cover' => 'required',
-            ]);
+        $this->validateForm($request);
 
         // metodo all() per avere tutte le coppie name-value in un array
         $data = $request->all();
@@ -93,29 +86,57 @@ class BeerController extends Controller
      */
     public function edit(Beer $beer)
     {
-        dd($beer);
+      return view('beers.edit', compact('beer'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  Beer  $beer
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Beer $beer)
     {
-        //
+        // validazione dati
+        $this->validateForm($request);
+
+        $data = $request->all();
+
+        $beer->update($data);
+
+        return redirect()->route('beers.show', compact('beer'));
+    }
+
+    /**
+     * Validate the form
+     *
+     * @param  Request  $request
+     * @return void
+     */
+    protected function validateForm(Request $request) {
+
+        $request->validate([
+            'brand' => 'required',
+            'type' => 'required',
+            'alcohol_content' => 'numeric',
+            'price' => 'required|numeric',
+            'cover' => 'required',
+        ]);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  Beer  $beer
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Beer $beer)
     {
-        //
+        // dd($beer);
+
+        $beer->delete();
+
+        return redirect()->route('beers.index');
     }
 }

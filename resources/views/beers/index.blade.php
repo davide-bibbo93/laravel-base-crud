@@ -26,12 +26,26 @@
           <td><img src="{{$beer->cover}}" width="100px" alt=""></td>
           <td>
             <a href="{{ route('beers.show', compact('beer')) }}">
-                <i class="far fa-eye"></i>
+                <button type="submit" class="btn btn-primary">
+                    <i class="far fa-eye"></i>
+                </button>
             </a>
             <a href="{{ route('beers.edit', compact('beer')) }}">
-                <i class="fas fa-edit"></i>
+                <button type="submit" class="btn btn-success">
+                    <i class="fas fa-edit"></i>
+                </button>
             </a>
-            <i class="fas fa-trash-alt"></i>
+            <form action="{{ route('beers.destroy', compact('beer')) }}" method="post">
+                @csrf
+                @method('DELETE')
+
+                <button type="submit" class="btn btn-danger">
+                    <i class="fas fa-trash-alt"></i>
+                </button>
+
+
+
+            </form>
           </td>
         </tr>
       @endforeach

@@ -35,16 +35,14 @@
                     <i class="fas fa-edit"></i>
                 </button>
             </a>
-            <form action="{{ route('beers.destroy', compact('beer')) }}" method="post">
+            <form action="{{ route('beers.destroy', ['beer' => $beer->id]) }}" method="post">
                 @csrf
                 @method('DELETE')
 
-                <button type="submit" class="btn btn-danger">
+                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal{{$beer->id}}">
                     <i class="fas fa-trash-alt"></i>
                 </button>
-
-
-
+                @include('beers.modal',['beer'=> $beer->id])
             </form>
           </td>
         </tr>

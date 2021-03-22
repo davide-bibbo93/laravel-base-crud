@@ -12,6 +12,7 @@
         <th scope="col">Alcohol_content</th>
         <th scope="col">Price</th>
         <th scope="col">Cover</th>
+        <th scope="col">Action</th>
       </tr>
     </thead>
     <tbody>
@@ -23,6 +24,15 @@
           <td>{{$beer->alcohol_content}}</td>
           <td>{{$beer->price}}</td>
           <td><img src="{{$beer->cover}}" width="100px" alt=""></td>
+          <td>
+            <a href="{{ route('beers.show', compact('beer')) }}">
+                <i class="far fa-eye"></i>
+            </a>
+            <a href="{{ route('beers.edit', compact('beer')) }}">
+                <i class="fas fa-edit"></i>
+            </a>
+            <i class="fas fa-trash-alt"></i>
+          </td>
         </tr>
       @endforeach
     </tbody>
